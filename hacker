@@ -1,0 +1,40 @@
+f = open("input.txt")
+words = f.readlines()
+words2 = [word[:-1] for word in words[:-1]]
+words = words2 + words[-1:]
+likeness = 0
+while likeness != -1:
+	# now we start hacking
+	wordnumbers = []
+	for wordi in words:
+		wordnumber = 0
+		for index in range(0,len(wordi)):
+			for wordj in words:
+				if wordj[index] == wordi[index]:
+					wordnumber += 1
+		wordnumbers.append(wordnumber)
+
+	for  i in range(0,len(words)):
+		print(words[i] + " " + str(wordnumbers[i]))
+
+	selected = words[wordnumbers.index(max(wordnumbers))] 
+	words.remove(selected)
+	print()
+	print(selected)
+	print()
+	likeness = int(input('Likeness? '))
+	print()
+	removed = []
+	for word in words:
+		likeness_number = 0
+		for index in range(0,len(word)):
+			if word[index] == selected[index]:
+				likeness_number += 1
+		if likeness_number != likeness:
+			removed.append(word)
+			words.remove(word)
+	print("removed:")
+	for word in removed:
+		print(word)
+	print()
+# get likeness of selected from every word
